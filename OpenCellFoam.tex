@@ -1,0 +1,51 @@
+\documentclass[12pt]{article}
+\usepackage[paper=a4paper]{geometry}
+\usepackage{graphicx}
+
+\title{Open Cell Foams}
+\author{Jean Fanuel}
+
+\begin{document}
+\setlength{\parindent}{1cm}
+\maketitle
+\section{Young's modulus}
+$E^* = C_1 \cdot E_s \cdot (\rho^* / \rho_s)^2$\\
+\\
+$C_1 \approx 1$\\
+\section{Shear Modulus}
+$G^* = C_2 \cdot E_s \cdot (\rho^* / \rho_s)^2$
+\\
+$C_2 \approx 3/8 = 0.375$\\
+
+\section{Poisson's Ratio}
+$\nu^* = \frac{C_1}{2 \cdot C_2} - 1 = C_3 = 1/3 $\\
+
+\section{Elastic Collapse}
+
+$\sigma^*_{el} = C_4 \cdot E_s \cdot (\rho^* / \rho_s)^2$\\
+\\
+$C_4 \approx 0.05 $\\
+corresponds to strain when buckling initiates ($\sigma^*_{el} / E^* = C_4 = \epsilon$)\\
+
+\section{Plastic Collapse}
+$\sigma^*_{pl} = C_5 \cdot \sigma_{ys} \cdot (\rho^* / \rho_s)^{3/2}$\\
+\\
+$C_5 \approx 0.3$\\
+elastic collapse precedes plastic collapse if $\sigma^*_{el} < \sigma^*_{pl}$\\
+i.e. $(\rho / \rho_s)_{critical} \le 36 \cdot (\sigma_{ys} / E_s)^2$\\
+\\
+rigid polymers $(\rho / \rho_s)_{critical} < 0.04 $\\
+metals $(\rho / \rho_s)_{critical} < 10^{-5} $\\
+
+\section{Brittle Crushing Strength}
+
+$\sigma^*_{cr} = C_6 \cdot \sigma_{fs} \cdot (\rho^* / \rho_s)^{3/2}$\\
+\\
+$C_6 \approx 0.2$\\
+
+\section{Densification Strain}
+$\epsilon_D = 1 - 1.4 \cdot (\rho^* / \rho_s)$
+
+
+
+\end{document}

@@ -1,0 +1,91 @@
+\documentclass[12pt]{article}
+\usepackage[paper=a4paper]{geometry}
+\usepackage{graphicx}
+
+\title{Closed Cell Foams}
+\author{Jean Fanuel}
+
+\begin{document}
+\setlength{\parindent}{1cm}
+\maketitle
+\section{Young's modulus}
+\Large
+$\frac{E^*}{E_s} = \phi^2 \cdot (\frac{\rho^*} {\rho_s })^2 +
+(1-\phi) \cdot \frac{\rho^*}{\rho_s}+
+\frac{P_0 \cdot (1-2\nu^*)}{E_s\cdot (1- \rho^*/\rho_s)}$\\
+\\
+\normalsize
+First component: edge bending\\
+Second component: face stretching\\
+Third component: gas compression\\
+\\
+$\phi$ : volume fraction of solid on cell edges\\
+if $P_0 = P_{atm} = 0.1 MPa$, gaz compression term negligible, except for closed-cell
+elastomeric foams\\
+\\
+Gas compression can be significant if $P_0 >> P_{atm}$. It also modifies shape of stress
+plateau in elastomeric closed cell foams.
+
+\section{Shear Modulus}
+\Large
+$\frac{G^*}{E_s} = \frac{3}{8} \cdot [\phi^2 \cdot (\frac{\rho^*}{\rho_s})^2 +
+(1-\phi) \cdot (\frac{\rho^*}{\rho_s}) ]$
+\normalsize (isotropic foam)\\
+\\
+
+\section{Poisson's Ratio}
+Poisson's ratio = f(cell geometry only)
+$\nu^*\approx 1/3$\\
+
+\section{Elastic Collapse}
+\Large
+$\sigma^*_{el} = 0.05 \cdot E_s \cdot (\rho^* / \rho_s)^2 + P_0 - P_{atm}$\\
+\normalsize
+
+\subsection{Post-collapse behaviour}
+Stress plateau rises due to gas compresion (if faces don't rupture)\\
+$\nu^* = 0 $ in post-collapse regime\\
+\\
+\Large
+$\sigma^*_{post-collapse} = 0.05 \cdot E_s \cdot (\frac{\rho^*}{\rho_s})^2 +
+\frac{P_0 \cdot \epsilon}{1 - \epsilon -( \rho^* / \rho_s)}$\\
+\\
+\normalsize
+$P_{atm}=0.1 MPa$\\
+\section{Plastic Collapse}
+
+\Large
+$\sigma^*_{pl} = C_5 \cdot \sigma_{ys} \cdot (\phi \cdot \rho^* / \rho_s)^{3/2} +
+C_5^{'} \cdot \sigma_{ys} \cdot (1-\phi) (\rho^* / \rho_s) +
+P_1-P_{atm}$\\
+\\
+\normalsize
+First component: edge bending\\
+Second component: face stretching\\
+Third component: gas compression\\
+$C_5 \approx 0.3$\\
+\\
+but in practice, faces often rupture around $\sigma^*_{pl}$
+often :\\
+\Large
+$\sigma^*_{pl} = 0.3 \cdot (\rho^* / \rho_s)^{3/2} \cdot \sigma_{ys}$\\
+\normalsize
+possible error in the notes, check against the following formula\\
+\Large
+$\sigma^*_{pl} = 0.3 \cdot (\phi \cdot \rho^* / \rho_s)^{3/2} \cdot \sigma_{ys}$\\
+\\
+\normalsize
+$P_{atm}=0.1 MPa$\\
+
+\section{Brittle Crushing Strength}
+
+$\sigma^*_{cr} = C_6 \cdot \sigma_{fs} \cdot (\rho^* / \rho_s)^{3/2}$\\
+\\
+$C_6 \approx 0.2$\\
+
+\section{Densification Strain}
+$\epsilon_D = 1 - 1.4 \cdot (\rho^* / \rho_s)$
+
+
+
+\end{document}

@@ -1,0 +1,199 @@
+\documentclass[12pt]{article}
+\usepackage[paper=a4paper]{geometry}
+\usepackage{graphicx}
+
+\title{Sandwich Panels}
+\author{Jean Fanuel}
+
+\begin{document}
+\setlength{\parindent}{1cm}
+\maketitle
+
+\normalsize
+\section{Descriptive Parameters}
+
+\begin{tabbing}
+t : \hspace{0.1cm}  \= face thickness\\
+\\
+c : \> core thickness\\
+\\
+l : \> beam length\\
+\\
+b : \> beam width\\
+\\
+W : \> beam Weigth\\
+\\
+$ \rho^*_c $: \> core foam density\\
+\\
+$ \rho_s $:	\> core solid density\\
+\\
+\Large $ \frac{\rho_c^*} {\rho_s} $:	\>\normalsize core relative density (typically 0.02 to 0.3)\\
+\\
+\Large $ \frac{t}{l} $ :	\>\normalsize typically 1/2000 to 1/200 = 0.0005 to 0.005
+\end{tabbing}
+\vspace{3cm}
+
+\section{loading configuration constants}
+
+
+
+\begin{tabbing}
+config independent\=  \\
+ \> $C_2 = 3/8 = 0.375$ \\
+ \> $C_{11} = 0.15$ (also named C4) constant of proportionality\\
+ \>\hspace{5.1cm} for the core shear strength\\
+
+3 Point Bending\\
+ \> $B_1 = 48$ \\
+ \> $B_2 = 4$ \\
+ \> $B_3 = 4$ \\
+ \> $B_4 = 2$ \\
+\\
+4 Point Loading \\
+ \> $B_1 = 28.2$ \\
+ \> $B_2 = 3$\\
+\\
+Cantilever \\
+ \> $B_3 = 1$ 
+ 
+ 
+\end{tabbing}
+
+
+\section{Deflection $\delta$}
+\begin{tabular}{l l}
+Effective Rigidity&\Large $(EI)_{eq}=
+ \frac{E_f \cdot b \cdot t^3}{6}  +
+ \frac{E_c \cdot b \cdot c^3}{12}  +
+ \frac{E_f \cdot b \cdot t}{2}  \cdot  (c+t)^2$\\
+\\
+\textit{given that:} & \normalsize $(E-f>>E^*_c$ \& $c>>t)$\\
+\\
+$(EI)_{eq}$ can be approxiated to: & \Large $(EI)_{eq}=
+  \frac{E_f \cdot b \cdot t \cdot c^2} {2}$\\
+\\
+Deflection (bending): &\Large$\delta_b=\frac{P\cdot l^3}{EI_{eq}}$\\
+\\
+\hspace{2cm}(shear):&\Large$\delta_s=\frac{P\cdot l}{B_2\cdot b \cdot c \cdot G^*_c}$\\
+\\
+&\Large$\delta=\delta_b + \delta_s$\\
+\\
+\hspace{3cm}precise&\Large$\delta=\frac{P\cdot l^3}{B_1\cdot (EI)_{eq}} + \frac{P\cdot l}{B_2 \cdot b \cdot c \cdot G^*_c }$\\
+\\
+\hspace{3cm}simplified& \Large $\delta\approx \frac{2\cdot P \cdot l^3}{B_1 \cdot E_f \cdot b \cdot t \cdot c^2} +
+		\frac{P\cdot l}{B_2 \cdot b \cdot c \cdot G^*_c }$\\
+\\
+with & \Large $G^*_c \approx C_2 \cdot E_s \cdot (\rho^*/\rho_s)^2$\normalsize  \hspace{1cm}(open-cell foam model) \\
+\\
+&\Large $C_2 = 3/8 = 0.375$ \\
+\end{tabular}
+%\clearpage
+\vspace{3cm}
+\section{Minimum weight (W) for a given stiffness}
+\vspace{0.5cm}
+
+\begin {tabular}{l l}
+
+&\Large
+$
+(\frac{c}{l})_{opt} = 4.3\cdot \{ \frac{C_2 \cdot B_2}{B_1^2}\cdot (\frac{\rho_f}{\rho_s})^2 \cdot
+\frac{E_s}{E_f^2} \cdot \frac{P}{\delta \cdot b}
+\}^{1/5}$\\
+\\
+
+&\Large $(\frac{t}{l})_{opt} = 0.32 \cdot\{\frac{1}{B_1\cdot B_2^2 \cdot C_2^2} \cdot
+  (\frac{\rho_s}{\rho_f})^4
+  \frac{1}{E_f \cdot E_s^2} \cdot
+( \frac{P}{\delta \cdot b}  )^3 \}^{1/5}$\\
+\\
+
+&\Large $(\frac{\rho_c^*}{\rho_s})_{opt} = 0.59 \cdot\{\frac{B_1}{B_2^3\cdot C_2^3} \cdot
+  (\frac{\rho_s}{\rho_f})
+  \frac{E_f}{E_s^3} \cdot
+( \frac{P}{\delta \cdot b})^2 \}^{1/5}$\\
+\\
+Note: & \Large $\frac{W_{faces}}{W_{cores}}=
+\frac {1}{4}$\hspace{0.5cm} $\frac{\delta_b}{\delta} =
+ \frac{1}{3}$\hspace{0.5cm}
+ $\frac{\delta_s}{\delta}=\frac{2}{3}$
+\end {tabular}
+
+\clearpage
+\section{Failure mode}
+\begin{tabbing}
+face:\hspace{1cm}\=can yield\\
+\>compressible face can buckle locally - "wrinkling"\\
+core: \>can fail in shear\\
+also: \>can have debonding and indentation\\
+\>we will assume perfect bond and load distributed sufficiently to avoid indentation.
+\end{tabbing}
+\noindent
+\bf Face yielding:\normalfont\  (the faces carry all the normal stress since $E_f >> E_c$):\\
+\\
+\Large
+\indent $\sigma_f=\frac{M\cdot y}{(EI)_{eq}}\cdot E_f \approx
+M \cdot \frac{c}{2} \cdot \frac{2}{E_f \cdot b \cdot t \cdot c^2}  \cdot E_f =
+\frac{M}{b\cdot t \cdot c}
+$\\
+\\
+\normalsize for a beam with a concentrated load P, the yielding occurs when\\
+\Large
+\indent $\sigma_f \approx \frac{P \cdot l}{B_3 \cdot b \cdot t \cdot c} = \sigma_{yf} $\\
+\\
+\normalsize
+\bf Face wrinkling:\normalfont\  when normal stress in the face = local buckling stress\\
+\vspace{.5cm}
+\Large
+\indent $\sigma_f=0.57 \cdot E_f^{1/3} \cdot E_s^{2/3}
+\cdot (\frac{\rho_c^*}{\rho_s})^{4/3} \approx \frac{P\cdot l}{B_3\cdot b \cdot t \cdot c}$\\
+\noindent \normalsize
+\vspace{.3cm}
+\bf Core shear \normalfont \ failure occurs when:\\
+\vspace{.3cm}
+\Large
+\indent $\tau_{c\ max} = \frac{P}{B_4 \cdot b \cdot c}=C_{11} \cdot (\frac{\rho_c^*}{\rho_s})^{3/2}
+\cdot \sigma_{ys}$\\
+\vspace{.3cm}
+\large
+\indent $C_{11}\approx 0.15$\\
+\subsection{failure transitions}
+\subsection{Face yielding and face wrinkling}
+\LARGE
+\indent $(\rho_c^*/\rho_S)=
+	(\frac {\sigma_{yf}}
+	{ 0.57 \cdot E_f^{1/3}
+	 \cdot E_s^{2/3}}   )^{(3/4) }$
+\\ \normalsize
+i.e. for given face and core materials, at constant $(\rho^*_c / \rho_s)$
+
+\subsection{Face yield and core shear}
+\Large
+\indent $
+(\frac{t}{l}) =
+\frac{C_{11}\cdot B_4}{B_3}
+\cdot (\frac{\rho_c^*}{\rho_s})^{3/2}
+\cdot (\frac{\sigma_{ys}}{\sigma_{yf}})
+$\\
+
+\normalsize
+\subsection{Face wrinking and core shear}
+
+
+\Large
+\indent
+$(\frac{t}{l}) =
+(\frac{C_{11} \cdot B_4}{0.57 \cdot B_3})
+\cdot (\frac{\sigma_{ys}}{E^{1/3}_f \cdot E^{2/3}_s})
+\cdot (\frac{\rho_c^*}{\rho_s})^{1/6}
+$
+\normalsize
+
+\section{Minimum weight design for stifness and strength}
+\vspace{0.5cm}
+\Large
+
+$W=3.18\cdot b \cdot l^2 [\frac{1}{B_1 \cdot B^2_2\cdot C_2^2} \cdot \frac{\rho_f \cdot \rho_s^4}{E_f \cdot E_s^2} \cdot (\frac{P}{\delta \cdot b}   )^3    ] ^{1/5}$ 
+
+
+
+\end{document}
