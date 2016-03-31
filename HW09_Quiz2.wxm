@@ -1,0 +1,409 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 15.08.1+git ] */
+
+/* [wxMaxima: hide output   ] */
+/* [wxMaxima: input   start ] */
+/* Problem 1: Open Cell Foam*/
+kill(all)$
+ratprint:false$
+Es:70E9$
+Sig_ys:140E6$
+RhoRel1:5/100$
+RhoRel2:10/100$
+RhoRel3:15/100$
+E1:Es*(RhoRel1)^2$
+E2:Es*(RhoRel2)^2$
+E3:Es*(RhoRel3)^2$
+print("a) Foam Young's modulus (MPa)")$
+/*
+Delta=Sig/E1*t+Sig/E2*t+Sig/E3*t=Eps*3*t
+Eps=(1/E1+1/E2+1/E3)*Sig/3
+Eps=Sig/E
+1/E=Eps/Sig=1/3*(1/E1+1/E2+1/E3)
+
+*/
+solve(3/E=1/E1+1/E2+1/E3,E);
+Estar:float(rhs(%[1]))$
+Estar/1E6;
+
+SigPl1:0.3*RhoRel1^(3/2)*Sig_ys$
+SigPl2:0.3*RhoRel2^(3/2)*Sig_ys$
+SigPl3:0.3*RhoRel3^(3/2)*Sig_ys$
+print("b) Sigma First Plateau(MPa)")$
+float(SigPl1/1E6);
+print("b) Sigma Second Plateau(MPa)")$
+float(SigPl2/1E6);
+print("b) Sigma third Plateau(MPa)")$
+float(SigPl3/1E6);
+
+print("c) Strain at the end of plateau 1")$
+/*
+  Delta=Eps*3*t=Eps1*t+Eps2*t+Eps3*t
+  Eps:(Eps1+Eps2+Eps3)/3
+*/
+Eps1:1-1.4*RhoRel1$
+Eps2:SigPl1/(Es*RhoRel2)^2$
+Eps3:SigPl1/(Es*RhoRel3)^2$
+Eps:float((Eps1+Eps2+Eps3)/3);
+print("c) Strain at the end of plateau 2")$
+Eps2:1-1.4*RhoRel2$
+Eps3:SigPl2/(Es*RhoRel3)^2$
+Eps:float((Eps1+Eps2+Eps3)/3);
+print("c) Strain at the end of plateau 3")$
+Eps3:1-1.4*RhoRel3$
+Eps:float((Eps1+Eps2+Eps3)/3);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: hide output   ] */
+/* [wxMaxima: input   start ] */
+/* ScienceDirect on balsa wood*/
+print("modeled as hexagonal honeycomb")$
+RhoS:1500$
+Es:35E9$
+RhoRel:0.063$
+Rho:RhoRel*Rho$
+t:2.46E-6$
+l:41.84E-6$
+h:27.85E-6$
+theta:26*%pi/180$
+RhoRel:0.129$
+SigYS:350E6$ /*Cave 1969 */
+TauYS:30E6$  /*Gibson and Ashby 1997 */
+Gs:2.6E9$
+print("Relative Density")$
+RhoRel;
+print("Young's Modulus (GPa - Akkerman 2005)")$
+E:RhoRel*Es$
+float(E*1E-9);
+print("Critical Stress (MPa)")$
+a:0.037$
+b:1.720E6$
+c:198.9E6$
+SigAX:b+c*(RhoRel-a)$
+float(SigAX*1E-6);
+
+print("shear modulus (MPa honeycomb)")$
+G13:Gs*(t/l)*cos(theta)/(h/l+sin(theta))$
+float(G13/1E6);
+GLT:1/2*Gs*RhoRel$
+float(GLT/1E6);
+
+print("TauLT (MPa)")$
+TauLT:TauYS*rhorel$
+float(TauLT/1E6);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: hide output   ] */
+/* [wxMaxima: input   start ] */
+/* ScienceDirect on balsa wood*/
+/*Applied to Problem 2*/
+print("modeled as hexagonal honeycomb")$
+RhoS:1500$
+Es:35E9$
+RhoStar:50$
+RhoRel:RhoStar/RhoS$
+t:2.46E-6$
+l:41.84E-6$
+h:27.85E-6$
+theta:26*%pi/180$
+SigYS:350E6$ /*Cave 1969 */
+TauYS:30E6$  /*Gibson and Ashby 1997 */
+Gs:2.6E9$
+print("Relative Density")$
+float(RhoRel);
+print("Young's Modulus (GPa - Akkerman 2005)")$
+E:RhoRel*Es$
+float(E*1E-9);
+print("Critical Stress (MPa)")$
+a:0.037$
+b:1.720E6$
+c:198.9E6$
+SigAX:b+c*(RhoRel-a)$
+float(SigAX*1E-6);
+
+print("shear modulus (MPa honeycomb)")$
+G13:Gs*(t/l)*cos(theta)/(h/l+sin(theta))$
+float(G13/1E6);
+print("shear modulus (MPa GLT)")$
+GLT:1/2*Gs*RhoRel$
+float(GLT/1E6);
+print("shear modulus as Part1  (MPa)")$
+G13:0.074*Es*RhoRel$
+float(G13/1E6);
+print("TauLT (MPa)")$
+TauLT:TauYS*RhoRel$
+float(TauLT/1E6);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: hide output   ] */
+/* [wxMaxima: input   start ] */
+/* Problem 2: Balsa Sandwich Panel*/
+Es:35E9$
+RhoS:1500$
+
+print("Part 1")$
+G13(x):=0.074*Es*(x/RhoS)/1E6$
+print("G13_50 (MPa)")$
+B50:G13(50);
+print("G13_150 (MPa)")$
+B150:G13(150);
+print("G13_250 (MPa)")$
+B250:G13(250);
+print("G13_350 (MPa)")$
+B350:G13(350);
+print("Indicative Reference 130 kg/m³ (MPa)")$
+print("230")$
+    
+print("Part 2 PU Open Cell Foam")$
+/* Open-cell PU foam */
+PuRhoS:1200$
+PuEs:1.6E9$
+C2:0.38$
+PuGstar(x):=C2*PuEs*1E-6*(x/PuRhoS)^2$
+print("Gstar_50 (MPa)")$
+PU50:PuGstar(50);
+print("G13_150 (MPa)")$
+PU150:PuGstar(150);
+print("G13_250 (MPa)")$
+PU250:PuGstar(250);
+print("G13_350 (MPa)")$
+PU350:PuGstar(350);
+
+print("Part 3 ration Balsa/PU")$
+print("Ratio 50")$
+float(B50/PU50);
+print("Ratio 150")$
+float(B150/PU150);
+print("Ratio 250")$
+float(B250/PU250);
+print("Ratio 350")$
+float(B350/PU350);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+/* Problem 3: regular hexagonal honeycomb*/
+h_l:1$
+theta:30$
+/* thickness t*/
+SigYsEs:3E-3*Es$
+/* densification strain*/
+EpsD:1-1.5*(t_l)$
+
+/*out-of-plane  Young's modulus*/
+RhoRel:(RhoStar/RhoS)$
+EStar3:Es*RhoRel$
+EStar3:Es*t_l*(h_l+2)/(2*(h_l+sin(theta))*cos(theta))$
+
+/*Sigma Elastic 3*/
+/* We only consider plastic buckling
+SigEl3:Es/(1-NuS^2)*(t_l)^3*2*(l_h+2)/((h_l+sin(theta))*cos(theta))$
+/*regular hexagons */
+SigEl3:5.2*Es*(t/l)^3$
+*/
+
+
+/********************/
+/* Plastic buckling */
+/********************/
+/*regular hexagons, sigma plastic out of plane - axis 3 */
+/* approx calculation Spl3:2*SigYs*t_l^2$ */
+
+/* exact calculation */
+Spl3:5.6*SigYs*t_l^(5/3)$ 
+
+
+
+/*Peak stress normalized by the Young's modulus*/
+W:Spl3*EpsD$
+SigP:Spl3$
+
+EpsD:1-1.5*(t_l)$
+W:SigP*EpsD;
+PeakNormalized:SigP/Es
+
+
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+/* Problem 3: regular hexagonal honeycomb*/
+kill(all)$
+ratprint:false$
+h_l:1$
+theta:30$
+SigYs_Es:3E-3$
+
+/*maximum energy absorbed per unit volume*/
+/*normalized by the solid Young's modulus*/
+/*Spl3_Es=5.6*SigYs_Es*t_l^(5/3)*/
+print("t/l equals ...")$
+t_l:(Spl3_Es/(5.6*3E-3))^(3/5);
+
+print("EpsD equals ...")$
+EpsD:1-1.5*(t_l); /* densification strain*/
+
+/*Linear elastic region Epsilon<Epsilon_0 */
+/*neglected Eps0~0 Wel~0 */
+/*W1:1/2*SigP^2/Estar$*/
+/*Stress plateau 0<Eps<EpsD*/
+
+W_Es:Spl3_Es*(EpsD);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+float((1250/21)^(3/5));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: hide output   ] */
+/* [wxMaxima: input   start ] */
+/* Problem 4: Sandwich Panel */
+kill(all)$
+ratprint:false$
+/*Absolute Constants*/
+C2:0.375$
+
+/*beam parameters three point bending*/
+l:1$
+b:50E-3$
+B1:48$
+B2:4$
+B3:4$
+B4:2$
+
+/*faces: CFRP - Carbon Fiber Reinforced Polymer */
+
+Ef:70E9$
+Sft:600E6$
+Sfc:570E6$
+t:2E-3$
+/*core: foamed polymethacrylimid, open cell*/
+Ec:3.6E9$
+NUc:0.3$
+SysC:120E6$
+RhoRel:0.15$
+C11:0.15$
+c:50E-3$
+
+/* Bending Stiffness */
+EIeq:Ef*b*t^3/6+Ec*b*c^3/12+(Ef*b*t*(c+t)^2)/2$
+Gsc:C2*Ec*RhoRel^2$
+print("bending stiffness P/delta (N/mm)")$
+Db_P:l^3/(B1*EIeq)$
+Ds_P:l/(B2*b*c*Gsc)$
+D_P:Ds_P+Db_P$
+float(1/(D_P*1000));
+
+/* Failure Modes */
+
+/* Face Yielding  */
+print("Face Yielding (kN)")$
+/*SigF=P*l/(B3*b*t*c)=Sft*/
+print("Approximative")$
+solve(P*l/(B3*b*t*c)=Sft,P)$
+float(rhs(%[1]/1000));
+
+print("Accurate")$
+solve(P*l/B3*c/2*1/EIeq*Ef=Sft,P)$
+float(rhs(%[1]/1000));
+
+/* Face Wrinkling */
+
+/*Wrinkling occurs when SigF=Sig_Buckling*/
+print("Face Wrinkling (kN)")$
+print("approximative")$
+Sfw:0.57*Ef^(1/3)*Ec^(2/3)*RhoRel^(4/3)$
+solve(Sfw=P*l/(B3*b*t*c),P)$
+float(rhs(%[1]/1000));
+print("accurate")$
+M:P*l/B3$
+Sig_Max:M*c/2*1/EIeq*Ef$
+solve(Sfw=Sig_Max,P)$
+float(rhs(%[1]/1000));
+
+print("Core Shear (kN)")$
+solve(P/(B4*b*c)=C11*RhoRel^(3/2)*SysC,P);
+float(rhs(%[1]/1000));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: hide output   ] */
+/* [wxMaxima: input   start ] */
+/* Problem 4 verification based on algorithm of hw08*/
+/* 3 point bending configuration */
+
+kill(all)$
+ratprint:false$
+
+
+/*P Central Load unknown*/
+l:1$        /*Beam length*/
+b:50E-3$      /*Beam width*/
+c:50E-3$   /*Core thickness*/
+t:2E-3$     /*face thickness*/
+
+RhoRel:0.15$  /*Core Relative Density*/
+
+Ef:70E9$        /*Young's modulus face*/
+SigYF:600E6$    /*Face Yield Strength*/
+Es:3.6E9$       /*Young's modulus core solid*/
+SigYS:120E6$    /*Strength core solid*/
+/*RhoS:1.2E3$     /*density core solid kg/m3*/
+
+/*Loading Configuration Constants*/
+/*3pt Bending here*/
+B1:48$      /*bending deflection*/
+B2:4$       /*shearing deflection*/
+B3:4$
+B4:2$
+
+
+C2:0.375$   /*Shear modulus Open Cell Foam : 3/8 */
+C4:0.15$
+
+/**********************************/
+/* Computing the total deflection */
+/**********************************/
+EIeq:(Ef*b*t*c^2)/2$ /* Approximate */
+Ec:Es$
+EIeq:Ef*b*t^3/6+Ec*b*c^3/12+(Ef*b*t*(c+t)^2)/2$ /*precise*/
+/* bending */
+print("bending deflection")$
+Db:P*l^3/(B1*EIeq);
+
+/*Shear*/
+Gc:C2*Es*RhoRel^2$ /*shear modulus for Open Cell Foam Cores*/
+print("shear deflection")$
+Ds:P*l/(B2*b*c*Gc)$
+
+print("total deflection")$
+/*Total Deflection*/
+Dt:Db+Ds$
+
+print("Compliance of the beam (mm/N)")$
+/*Total Deflection*/
+float(Dt*1000/P);
+print("bending stiffness (N/mm)")$
+P/(Dt*1000);
+
+D_P:2*l^3/(B1*Ef*b*t*c^2)+l/(B2*b*c*C2*Es*RhoRel^2)$
+float(D_P*1000);
+/******************************/   
+/*        Failure Modes       */
+/******************************/
+
+/* Face Yielding  */
+Pfy:B3*b*c*(t/l)*SigYF$
+print("Face Yielding Pfy (kN)")$
+float(Pfy/1000);
+    
+/* Face Wrinkling */
+Pfw:0.57*B3*b*c*(t/l)*Ef^(1/3)*Es^(2/3)*RhoRel^(4/3)$
+print("Face wrinkling Pfw (kN)")$
+float(Pfw/1000);
+    
+/* Core Shear     */
+Pcs:C4*B4*b*c*SigYS*RhoRel^(3/2)$
+print("Core Shear Pcs (kN)")$
+float(Pcs/1000);
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$
